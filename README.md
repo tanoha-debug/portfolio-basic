@@ -1,36 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio (basic)
 
-## Getting Started
+シンプルなポートフォリオサイト。Next.js 15 (App Router) + TypeScript + Tailwind CSS v4 + MDX 構成。
 
-First, run the development server:
+## セットアップ
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+`http://localhost:3000` で表示されます。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ビルド
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm run start
+```
 
-## Learn More
+## 作品データの追加・編集
 
-To learn more about Next.js, take a look at the following resources:
+- 作品 1 件 = `src/content/works/<slug>.mdx` 1 ファイル
+- frontmatter にメタ情報、本文に作品解説（Markdown / MDX）
+- ファイルを増やせば TOP の WORKS 一覧と `/works/<slug>` の動的ルートが自動生成される
+- 表示順は frontmatter の `order` 昇順
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### frontmatter スキーマ
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| キー | 型 | 説明 |
+| --- | --- | --- |
+| `title` | string | 作品タイトル |
+| `client` | string | クライアント名 |
+| `category` | string | カテゴリ（例: `Design / Coding(Responsive)`） |
+| `thumbnail` | string | 一覧サムネ画像パス |
+| `mainVisual` | string | 詳細メインビジュアル画像パス |
+| `summary` | string | 一行サマリ |
+| `url` | string | 公開サイト URL |
+| `role` | string | 担当範囲 |
+| `purpose` | string | サイトの目的 |
+| `target` | string | ターゲット |
+| `publishedAt` | string | 公開日（YYYY-MM-DD） |
+| `order` | number | 並び順（昇順） |
 
-## Deploy on Vercel
+型は `src/lib/works.ts` の `WorkMeta` に定義。
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 画像
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `public/images/` 配下に配置（現在はダミー SVG）
+- next/image で SVG を扱うため `next.config.ts` に `dangerouslyAllowSVG` を有効化（自前 SVG のみ配置する前提）
+
+## ディレクトリ構成
+
+```
+src/
+├── app/
+│   ├── layout.tsx           # 共通レイアウト・Header/Footer/ScrollToTop
+│   ├── page.tsx             # TOP（Hero / Works / Skill / About / Contact）
+│   ├── globals.css          # デザイントークン (Tailwind v4 @theme)
+│   └── works/[slug]/page.tsx
+├── components/
+│   ├── Header.tsx
+│   ├── Footer.tsx
+│   ├── Hero.tsx
+│   ├── WorksSection.tsx
+│   ├── WorkCard.tsx
+│   ├── SkillSection.tsx
+│   ├── AboutSection.tsx
+│   ├── ContactSection.tsx
+│   ├── ScrollToTop.tsx
+│   ├── SectionHeading.tsx
+│   └── MotionFadeIn.tsx
+├── content/works/*.mdx
+└── lib/works.ts
+```
+
+## デプロイ
+
+Vercel に新規プロジェクトとして接続し、`main` ブランチを push するだけ。環境変数 `NEXT_PUBLIC_SITE_URL` に本番 URL を入れると OGP の絶対 URL が正しく出ます。

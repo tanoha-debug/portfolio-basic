@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+  <rect width="100%" height="100%" fill="hsl(195, 22%, 92%)"/>
+  <circle cx="1248" cy="252.00000000000003" r="162" fill="hsl(195, 26%, 70%)" opacity="0.55"/>
+  <rect x="128" y="522" width="672" height="36" rx="2" fill="hsl(195, 26%, 70%)" opacity="0.7"/>
+  <rect x="128" y="594" width="448.00000000000006" height="31.500000000000004" rx="2" fill="hsl(195, 26%, 70%)" opacity="0.45"/>
+  <text x="128" y="450" font-family="-apple-system, system-ui, sans-serif" font-size="96" font-weight="500" fill="hsl(195, 18%, 38%)">WORK-2</text>
+  <text x="128" y="550" font-family="-apple-system, system-ui, sans-serif" font-size="45" fill="hsl(195, 18%, 38%)" opacity="0.7">Owned Media</text>
+</svg>
