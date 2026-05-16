@@ -121,6 +121,35 @@ export default async function WorkPage({ params }: Props) {
           ))}
         </dl>
 
+        {work.gallery.length > 0 && (
+          <section className="mb-16">
+            <h2 className="mb-6 text-[11px] tracking-[0.3em] text-dusty">
+              GALLERY
+            </h2>
+            <ul className="grid grid-cols-1 gap-8 md:grid-cols-2">
+              {work.gallery.map((item, i) => (
+                <li key={i}>
+                  <div className="overflow-hidden rounded-sm bg-dustylight">
+                    <Image
+                      src={item.src}
+                      alt={item.alt}
+                      width={item.width ?? 1600}
+                      height={item.height ?? 1000}
+                      className="h-auto w-full"
+                      sizes="(min-width: 768px) 380px, 100vw"
+                    />
+                  </div>
+                  {item.caption && (
+                    <p className="mt-3 text-[12px] leading-[1.7] text-mediumgray">
+                      {item.caption}
+                    </p>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
         <div className="mdx-content">
           <MDXRemote source={work.content} />
         </div>

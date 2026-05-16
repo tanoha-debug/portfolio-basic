@@ -2,6 +2,14 @@ import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 
+export type GalleryItem = {
+  src: string
+  alt: string
+  caption?: string
+  width?: number
+  height?: number
+}
+
 export type WorkMeta = {
   slug: string
   title: string
@@ -16,6 +24,7 @@ export type WorkMeta = {
   target: string
   publishedAt: string
   order: number
+  gallery: GalleryItem[]
 }
 
 export type Work = WorkMeta & {
@@ -42,6 +51,7 @@ function readWork(slug: string): Work {
     target: data.target as string,
     publishedAt: data.publishedAt as string,
     order: (data.order as number) ?? 999,
+    gallery: (data.gallery as GalleryItem[] | undefined) ?? [],
     content,
   }
 }
